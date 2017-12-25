@@ -1,0 +1,33 @@
+{
+  "name": "dolitzer-prize-api",
+  "version": "0.0.1",
+  "description": "Funny hearthstone screenshots",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "start:watch": "nodemon",
+    "prestart:prod": "tsc",
+    "start:prod": "node dist/server.js"
+  },
+  "dependencies": {
+    "@nestjs/common": "^4.4.0",
+    "@nestjs/core": "^4.4.0",
+    "@nestjs/microservices": "^4.4.0",
+    "@nestjs/testing": "^4.4.0",
+    "@nestjs/websockets": "^4.4.0",
+    "cors": "^2.8.4",
+    "passport": "^0.4.0",
+    "passport-bnet": "^1.2.1",
+    "redis": "^2.7.1",
+    "reflect-metadata": "^0.1.10",
+    "rxjs": "^5.4.0",
+    "typescript": "^2.5.2"
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.28",
+    "@types/passport": "^0.4.2",
+    "@types/passport-oauth2": "^1.4.3",
+    "nodemon": "^1.12.1",
+    "ts-node": "^3.3.0"
+  }
+}
