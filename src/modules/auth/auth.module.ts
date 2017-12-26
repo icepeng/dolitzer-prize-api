@@ -1,15 +1,20 @@
-import * as passport from 'passport';
 import {
+  MiddlewaresConsumer,
   Module,
   NestModule,
-  MiddlewaresConsumer,
   RequestMethod,
 } from '@nestjs/common';
-import { BnetStrategy } from './passport/bnet.strategy';
+import * as passport from 'passport';
+
+import { UserModule } from '../user/user.module';
 import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service';
+import { BnetStrategy } from './passport/bnet.strategy';
+import { JwtStrategy } from './passport/jwt.strategy';
 
 @Module({
-  components: [BnetStrategy],
+  imports: [UserModule],
+  components: [BnetStrategy, JwtStrategy, AuthService],
   controllers: [AuthController],
 })
 export class AuthModule implements NestModule {

@@ -1,10 +1,20 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
+import { Photo } from './photo/photo.entity';
+import { PhotoModule } from './photo/photo.module';
+import { User } from './user/user.entity';
+import { UserModule } from './user/user.module';
 
 @Module({
-  modules: [AuthModule],
+  modules: [
+    TypeOrmModule.forRoot([User, Photo]),
+    AuthModule,
+    UserModule,
+    PhotoModule,
+  ],
   controllers: [AppController],
   components: [],
 })

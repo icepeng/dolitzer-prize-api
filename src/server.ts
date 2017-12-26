@@ -19,7 +19,7 @@ async function bootstrap() {
     await app.use(cors());
 
     http.createServer(server).listen(3000);
-    https.createServer(httpsOptions, server).listen(443);
+    https.createServer(httpsOptions, server).listen(3001);
   } catch (err) {
     console.log(err);
   }

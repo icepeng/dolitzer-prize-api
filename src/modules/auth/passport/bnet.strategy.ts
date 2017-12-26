@@ -11,7 +11,7 @@ export class BnetStrategy extends Strategy {
       {
         clientID: 'jkwah5ej8huy3es57s22c3zgx8y9z3vd',
         clientSecret: Secret.clientSecret,
-        callbackURL: 'https://localhost/auth/bnet/callback',
+        callbackURL: 'https://localhost:3001/auth/bnet/callback',
         region: 'kr',
       },
       async (accessToken, refreshToken, profile, done) =>
