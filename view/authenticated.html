@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Authenticated</title>
+</head>
+
+<body>
+    Authenticated successfully.
+
+    <script type="text/javascript">
+        window.opener.postMessage('{{token}}', '*');
+        window.close();
+    </script>
+</body>
+
+</html>

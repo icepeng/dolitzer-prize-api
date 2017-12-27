@@ -1,3 +1,4 @@
+import * as path from 'path';
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import * as cors from 'cors';
@@ -5,6 +6,7 @@ import * as express from 'express';
 import * as fs from 'fs';
 import * as http from 'http';
 import * as https from 'https';
+import * as consolidate from 'consolidate';
 
 import { ApplicationModule } from './modules/app.module';
 
@@ -17,7 +19,11 @@ async function bootstrap() {
 
     const server = express();
     const app = await NestFactory.create(ApplicationModule, server);
+    app.set('views', path.join(__dirname, '../view'));
+    server.engine('html', consolidate.mustache);
+    app.set('view engine', 'html');
     app.use(cors());
+    app.setGlobalPrefix('/api/v1');
     app.useGlobalPipes(new ValidationPipe());
     await app.init();
 

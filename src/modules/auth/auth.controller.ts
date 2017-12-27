@@ -22,6 +22,6 @@ export class AuthController {
   public async callback(@Auth() profile: Profile, @Res() res: Response) {
     const user = await this.userService.saveUser(profile);
     const token = await this.authService.createToken(user);
-    return res.redirect(`localhost:4200/auth?token=${token}`);
+    return res.render('authenticated', { token });
   }
 }
