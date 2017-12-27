@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
+import { LikedPhotoModule } from './liked-photo/liked-photo.module';
 import { Photo } from './photo/photo.entity';
 import { PhotoModule } from './photo/photo.module';
 import { User } from './user/user.entity';
@@ -14,6 +15,7 @@ import { UserModule } from './user/user.module';
     AuthModule,
     UserModule,
     PhotoModule,
+    LikedPhotoModule,
   ],
   controllers: [AppController],
   components: [],

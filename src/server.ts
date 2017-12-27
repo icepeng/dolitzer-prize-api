@@ -1,10 +1,12 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { ApplicationModule } from './modules/app.module';
-import * as fs from 'fs';
+import * as cors from 'cors';
 import * as express from 'express';
+import * as fs from 'fs';
 import * as http from 'http';
 import * as https from 'https';
-import * as cors from 'cors';
+
+import { ApplicationModule } from './modules/app.module';
 
 async function bootstrap() {
   try {
@@ -15,8 +17,9 @@ async function bootstrap() {
 
     const server = express();
     const app = await NestFactory.create(ApplicationModule, server);
+    app.use(cors());
+    app.useGlobalPipes(new ValidationPipe());
     await app.init();
-    await app.use(cors());
 
     http.createServer(server).listen(3000);
     https.createServer(httpsOptions, server).listen(3001);

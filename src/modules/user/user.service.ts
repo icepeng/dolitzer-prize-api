@@ -1,9 +1,7 @@
 import { Component } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import * as jwt from 'jsonwebtoken';
 import { Repository } from 'typeorm';
 
-import { Secret } from '../../../secrets/secret';
 import { User } from './user.entity';
 
 @Component()
@@ -13,13 +11,29 @@ export class UserService {
   ) {}
 
   async saveUser(info: { id: string; battletag: string }) {
-    return this.userRepository.save({
+    const existingUser = await this.userRepository.findOne(info.id);
+    if (existingUser) {
+      if (existingUser.battletag !== info.battletag) {
+        return this.userRepository.save(existingUser);
+      }
+      return existingUser;
+    }
+    const user = this.userRepository.create({
       id: info.id,
       battletag: info.battletag,
     });
+    return this.userRepository.save(user);
   }
 
   async findAll() {
     return this.userRepository.find();
+  }
+
+  async findPhotos(id: string) {
+    return this.userRepository
+      .createQueryBuilder('user')
+      .relation('photos')
+      .of(id)
+      .loadMany();
   }
 }

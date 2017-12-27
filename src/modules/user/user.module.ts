@@ -4,8 +4,8 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
-import * as passport from 'passport';
 
+import { JwtMiddleware } from '../common/jwt.middleware';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 
@@ -17,7 +17,10 @@ import { UserService } from './user.service';
 export class UserModule implements NestModule {
   public configure(consumer: MiddlewaresConsumer) {
     consumer
-      .apply(passport.authenticate('jwt', { session: false }))
-      .forRoutes({ path: '/user', method: RequestMethod.ALL });
+      .apply(JwtMiddleware)
+      .forRoutes(
+        { path: '/users', method: RequestMethod.ALL },
+        { path: '/users/:id/photos', method: RequestMethod.ALL },
+      );
   }
 }

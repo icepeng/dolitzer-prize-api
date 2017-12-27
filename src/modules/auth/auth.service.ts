@@ -19,7 +19,7 @@ export class AuthService {
     return token;
   }
 
-  async validateUser(id: string): Promise<boolean> {
-    return !!this.userRepository.findOne(id);
+  async validateUser(user: { id: string; battletag: string; }) {
+    return this.userRepository.findOne(user.id);
   }
 }

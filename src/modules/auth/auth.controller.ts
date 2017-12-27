@@ -1,6 +1,7 @@
-import { Controller, Get, Req, Res } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Controller, Get, Res } from '@nestjs/common';
+import { Response } from 'express';
 
+import { Auth } from '../common/auth.decorator';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
 import { Profile } from './interfaces/profile';
@@ -18,8 +19,7 @@ export class AuthController {
   }
 
   @Get('bnet/callback')
-  public async callback(@Req() req: Request, @Res() res: Response) {
-    const profile: Profile = req.user;
+  public async callback(@Auth() profile: Profile, @Res() res: Response) {
     const user = await this.userService.saveUser(profile);
     const token = await this.authService.createToken(user);
     return res.redirect(`localhost:4200/auth?token=${token}`);

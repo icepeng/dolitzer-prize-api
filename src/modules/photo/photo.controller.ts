@@ -1,8 +1,21 @@
-import { Controller, Get, NotFoundException, Param, Post } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
 
+import { Auth } from '../common/auth.decorator';
+import { User } from '../user/user.entity';
+import { CreatePhotoDto } from './dto/create-photo.dto';
 import { PhotoService } from './photo.service';
 
-@Controller('photo')
+@Controller('photos')
 export class PhotoController {
   constructor(private readonly photoService: PhotoService) {}
 
@@ -12,15 +25,42 @@ export class PhotoController {
   }
 
   @Get('/:id')
-  public async getOne(@Param('id') id: string) {
-    const photo = this.photoService.findOne(id);
+  public async getOne(
+    @Param('id', new ParseIntPipe())
+    id: number,
+  ) {
+    const photo = await this.photoService.findOne(id);
     if (!photo) {
       throw new NotFoundException();
     }
+
+    return photo;
   }
 
-  @Post('/:id/like')
-  public async like(@Param('id') id: string) {
-    return this.photoService.like(id);
+  @Post()
+  public async create(
+    @Body() createPhotoDto: CreatePhotoDto,
+    @Auth() user: User,
+  ) {
+    const photo = await this.photoService.create(createPhotoDto, user);
+    return { id: photo.id };
+  }
+
+  @Delete('/:id')
+  public async remove(
+    @Param('id', new ParseIntPipe())
+    id: number,
+    @Auth() user: User,
+  ) {
+    const photo = await this.photoService.findOne(id);
+    if (!photo) {
+      throw new NotFoundException();
+    }
+
+    if (photo.user.id !== user.id) {
+      throw new BadRequestException();
+    }
+
+    return this.photoService.remove(photo);
   }
 }
