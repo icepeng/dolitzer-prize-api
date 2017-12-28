@@ -5,5 +5,5 @@
   "username": "pinkbean",
   "database": "dolitzer",
   "entities": ["src/**/*.entity.ts"],
-  "autoSchemaSync": true
+  "synchronize": true
 }
