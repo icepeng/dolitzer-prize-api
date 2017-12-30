@@ -1,9 +1,19 @@
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToMany,
+  OneToMany,
+  PrimaryColumn,
+} from 'typeorm';
+
 import { Photo } from '../photo/photo.entity';
-import { Column, Entity, PrimaryColumn, OneToMany, ManyToMany } from 'typeorm';
 
 @Entity()
 export class User {
   @PrimaryColumn() id: string;
+
+  @CreateDateColumn() createTime: string;
 
   @Column() battletag: string;
 

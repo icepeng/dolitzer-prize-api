@@ -1,5 +1,6 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   JoinTable,
@@ -13,6 +14,8 @@ import { User } from '../user/user.entity';
 @Entity()
 export class Photo {
   @PrimaryGeneratedColumn() id: number;
+
+  @CreateDateColumn() createTime: string;
 
   @Column() title: string;
 
