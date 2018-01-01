@@ -18,6 +18,7 @@
     "@nestjs/websockets": "^4.4.0",
     "@types/jsonwebtoken": "^7.2.5",
     "@types/passport-jwt": "^3.0.0",
+    "class-transformer": "^0.1.8",
     "class-validator": "^0.7.3",
     "consolidate": "^0.15.0",
     "cors": "^2.8.4",

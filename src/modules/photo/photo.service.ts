@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 
 import { User } from '../user/user.entity';
 import { CreatePhotoDto } from './dto/create-photo.dto';
+import { PhotoQueryDto } from './dto/photo-query.dto';
 import { Photo } from './photo.entity';
 
 @Component()
@@ -13,8 +14,16 @@ export class PhotoService {
     private readonly photoRepository: Repository<Photo>,
   ) {}
 
-  async findAll() {
-    return this.photoRepository.find({ relations: ['user'] });
+  async findAll(query: PhotoQueryDto) {
+    return this.photoRepository
+      .createQueryBuilder('photo')
+      .leftJoinAndSelect('photo.user', 'user')
+      .where('photo.createTime >= :fromDate', { fromDate: query.fromDate })
+      .andWhere('photo.createTime <= :toDate', { toDate: query.toDate })
+      .skip(query.skip)
+      .take(query.take)
+      .orderBy('photo.createTime', 'DESC')
+      .getMany();
   }
 
   async findOne(id: number) {

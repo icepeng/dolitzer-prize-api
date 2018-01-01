@@ -3,6 +3,7 @@
     "module": "commonjs",
     "declaration": false,
     "noImplicitAny": false,
+    "strictNullChecks": true,
     "removeComments": true,
     "noLib": false,
     "emitDecoratorMetadata": true,
@@ -21,6 +22,7 @@
   ],
   "exclude": [
     "node_modules",
+    "secrets",
     "**/*.spec.ts"
   ]
 }

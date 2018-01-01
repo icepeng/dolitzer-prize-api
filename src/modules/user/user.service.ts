@@ -2,6 +2,7 @@ import { Component } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
+import { Photo } from '../photo/photo.entity';
 import { User } from './user.entity';
 
 @Component()
@@ -29,7 +30,13 @@ export class UserService {
     return this.userRepository.find();
   }
 
-  async findPhotos(id: string) {
+  async findOne(id: string) {
+    return this.userRepository.findOne(id, {
+      relations: ['photos', 'likedPhotos'],
+    });
+  }
+
+  async findPhotos(id: string): Promise<Photo[]> {
     return this.userRepository
       .createQueryBuilder('user')
       .relation('photos')

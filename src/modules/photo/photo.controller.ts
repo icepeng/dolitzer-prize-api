@@ -8,11 +8,13 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Query,
 } from '@nestjs/common';
 
 import { Auth } from '../common/auth.decorator';
 import { User } from '../user/user.entity';
 import { CreatePhotoDto } from './dto/create-photo.dto';
+import { PhotoQueryDto } from './dto/photo-query.dto';
 import { PhotoService } from './photo.service';
 
 @Controller('photos')
@@ -20,8 +22,8 @@ export class PhotoController {
   constructor(private readonly photoService: PhotoService) {}
 
   @Get()
-  public async getAll() {
-    return this.photoService.findAll();
+  public async getAll(@Query() query: PhotoQueryDto) {
+    return this.photoService.findAll(query);
   }
 
   @Get('/:id')

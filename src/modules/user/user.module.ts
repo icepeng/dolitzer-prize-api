@@ -19,8 +19,9 @@ export class UserModule implements NestModule {
     consumer
       .apply(JwtMiddleware)
       .forRoutes(
-        { path: '/users', method: RequestMethod.ALL },
         { path: '/users/:id/photos', method: RequestMethod.ALL },
+        { path: '/users/:id', method: RequestMethod.ALL },
+        { path: '/users', method: RequestMethod.ALL },
       );
   }
 }

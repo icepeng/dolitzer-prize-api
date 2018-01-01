@@ -11,6 +11,11 @@ export class UserController {
     return this.userService.findAll();
   }
 
+  @Get('/:id')
+  public async getOne(@Param('id') id: string) {
+    return this.userService.findOne(id);
+  }
+
   @Get('/:id/photos')
   public async getPhotos(@Param('id') id: string) {
     return this.userService.findPhotos(id);
