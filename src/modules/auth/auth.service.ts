@@ -3,8 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import * as jwt from 'jsonwebtoken';
 import { Repository } from 'typeorm';
 
-import { Secret } from '../../../secrets/secret';
 import { User } from '../user/user.entity';
+
+const Secret = require('../../../secrets/secret');
 
 @Component()
 export class AuthService {
@@ -19,7 +20,7 @@ export class AuthService {
     return token;
   }
 
-  async validateUser(user: { id: string; battletag: string; }) {
+  async validateUser(user: { id: string; battletag: string }) {
     return this.userRepository.findOne(user.id);
   }
 }

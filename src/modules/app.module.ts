@@ -11,7 +11,15 @@ import { UserModule } from './user/user.module';
 
 @Module({
   modules: [
-    TypeOrmModule.forRoot([User, Photo]),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'pinkbean',
+      database: 'dolitzer',
+      entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+      synchronize: true,
+    }),
     AuthModule,
     UserModule,
     PhotoModule,

@@ -4,14 +4,16 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { JwtMiddleware } from '../common/jwt.middleware';
 import { PhotoModule } from '../photo/photo.module';
+import { User } from '../user/user.entity';
 import { LikedPhotoController } from './liked-photo.controller';
 import { LikedPhotoService } from './liked-photo.service';
 
 @Module({
-  imports: [PhotoModule],
+  imports: [PhotoModule, TypeOrmModule.forFeature([User])],
   components: [LikedPhotoService],
   controllers: [LikedPhotoController],
 })

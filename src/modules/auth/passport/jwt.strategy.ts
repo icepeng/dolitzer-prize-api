@@ -2,9 +2,9 @@ import { Component } from '@nestjs/common';
 import * as passport from 'passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
-import { Secret } from '../../../../secrets/secret';
 import { AuthService } from '../auth.service';
 
+const Secret = require('../../../../secrets/secret');
 @Component()
 export class JwtStrategy extends Strategy {
   constructor(private readonly authService: AuthService) {

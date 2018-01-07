@@ -2,7 +2,7 @@ import { Component } from '@nestjs/common';
 import * as passport from 'passport';
 import { Strategy } from 'passport-bnet';
 
-import { Secret } from '../../../../secrets/secret';
+const Secret = require('../../../../secrets/secret');
 
 @Component()
 export class BnetStrategy extends Strategy {

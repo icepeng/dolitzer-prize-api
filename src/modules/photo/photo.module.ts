@@ -4,12 +4,15 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { JwtMiddleware } from '../common/jwt.middleware';
 import { PhotoController } from './photo.controller';
+import { Photo } from './photo.entity';
 import { PhotoService } from './photo.service';
 
 @Module({
+  imports: [TypeOrmModule.forFeature([Photo])],
   components: [PhotoService],
   exports: [PhotoService],
   controllers: [PhotoController],
