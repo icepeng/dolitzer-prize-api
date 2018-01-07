@@ -27,8 +27,8 @@ async function bootstrap() {
     app.useGlobalPipes(new ParseModelPipe());
     await app.init();
 
-    http.createServer(server).listen(3000);
-    https.createServer(httpsOptions, server).listen(3001);
+    http.createServer(server).listen(3001);
+    https.createServer(httpsOptions, server).listen(3002);
   } catch (err) {
     console.log(err);
   }
